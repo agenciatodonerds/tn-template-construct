@@ -1,0 +1,51 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/ui/Header.astro";
+import Footer from "../components/ui/Footer.astro";
+import Hero from "../components/sections/Hero.astro";
+import Services from "../components/sections/Services.astro";
+import Gallery from "../components/sections/Gallery.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
+import Contact from "../components/sections/Contact.astro";
+
+// SEO Local y Meta-información (Nicho: Construcción/Reformas)
+const seoData = {
+  title: "TodoNerds Construcciones | Reformas Integrales y Obra Civil",
+  description:
+    "Especialistas en reformas, albañilería, pintura y llave en mano. Convertimos tu proyecto en una realidad sólida con acabados premium.",
+  image: "/og-construction.jpg",
+};
+---
+
+<Layout {...seoData}>
+  <!-- Schema.org específico para empresas de construcción -->
+  <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "HomeAndConstructionBusiness",
+      "name": "TodoNerds Construcciones",
+      "description": "Servicios de construcción, remodelación y arquitectura técnica.",
+      "image": "/og-construction.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Tu Dirección Local 123",
+        "addressLocality": "Tu Ciudad",
+        "addressRegion": "Tu Provincia"
+      },
+      "priceRange": "$$",
+      "areaServed": "Tu Ciudad y alrededores"
+    }
+  </script>
+
+  <Header />
+
+  <main>
+    <Hero />
+    <Services />
+    <Gallery />
+    <Testimonials />
+    <Contact />
+  </main>
+
+  <Footer />
+</Layout>

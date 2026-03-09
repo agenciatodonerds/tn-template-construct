@@ -1,0 +1,207 @@
+---
+import { HardHat } from "lucide-react";
+
+const navItems = [
+  { name: "Inicio", href: "#inicio" },
+  { name: "Servicios", href: "#servicios" },
+  { name: "Galería", href: "#galeria" },
+  { name: "Testimonios", href: "#testimonios" },
+];
+---
+
+<header
+  id="main-header"
+  class="fixed top-0 w-full z-50 transition-all duration-500 ease-in-out bg-surface-100/95 backdrop-blur-md border-b border-surface-300"
+>
+  <div class="container mx-auto px-4">
+    <div
+      class="flex items-center justify-between h-24 transition-all duration-500 ease-in-out"
+      id="header-container"
+    >
+      <!-- LOGO: Construcción -->
+      <a
+        href="/"
+        class="flex items-center gap-3 group outline-none shrink-0"
+        aria-label="Volver al inicio"
+      >
+        <div
+          class="p-2.5 bg-primary rounded-sm group-hover:bg-primary-dark transition-all duration-300 shadow-lg shadow-primary/10"
+        >
+          <!-- Color del icono invertido para que resalte en el naranja -->
+          <HardHat className="text-white w-6 h-6 md:w-7 md:h-7" />
+        </div>
+        <div class="flex flex-col">
+          <span
+            class="text-secondary font-title text-xl md:text-2xl leading-tight tracking-wider uppercase"
+            >TodoNerds</span
+          >
+          <span
+            class="text-primary text-[10px] md:text-[11px] uppercase tracking-[0.3em] font-bold"
+            >Construcciones</span
+          >
+        </div>
+      </a>
+
+      <!-- DESKTOP NAV -->
+      <nav class="hidden lg:flex items-center gap-10">
+        <ul class="flex gap-10">
+          {
+            navItems.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-secondary hover:text-primary font-medium text-[16px] tracking-wide transition-colors duration-300 relative group py-2 font-body"
+                >
+                  {item.name}
+                  <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <a
+          href="https://wa.me/tunumerowhatsapp"
+          target="_blank"
+          class="bg-secondary hover:bg-secondary-light text-white px-8 py-3.5 text-[20px] font-title tracking-widest transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-secondary/20"
+        >
+          COTIZAR OBRA
+        </a>
+      </nav>
+
+      <!-- BOTÓN MENÚ MÓVIL -->
+      <button
+        id="menu-toggle"
+        class="lg:hidden p-2.5 text-secondary outline-none focus:ring-2 focus:ring-primary/50 rounded-lg transition-colors"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+      >
+        <svg
+          id="hamburger-icon"
+          class="w-8 h-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+        <svg
+          id="close-icon"
+          class="hidden w-8 h-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- MENÚ MÓVIL -->
+  <div
+    id="mobile-menu"
+    class="hidden lg:hidden absolute top-full left-0 w-full bg-surface-100 border-b border-primary/20 shadow-2xl overflow-y-auto max-h-[calc(100dvh-100%)]"
+  >
+    <nav class="flex flex-col p-8 gap-4 items-center text-center">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class="mobile-link text-2xl text-secondary hover:text-primary py-3 w-full border-b border-surface-200 font-title tracking-widest transition-colors uppercase"
+          >
+            {item.name}
+          </a>
+        ))
+      }
+      <a
+        href="https://wa.me/tunumerowhatsapp"
+        class="mobile-link w-full bg-primary text-white py-5 mt-4 font-title text-xl tracking-[0.2em] uppercase hover:bg-primary-dark transition-all shadow-inner"
+      >
+        WHATSAPP DIRECTO
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const hamburgerIcon = document.getElementById("hamburger-icon");
+  const closeIcon = document.getElementById("close-icon");
+  const header = document.getElementById("main-header");
+  const headerContainer = document.getElementById("header-container");
+  const mobileLinks = document.querySelectorAll(".mobile-link");
+
+  function toggleMenu() {
+    const isExpanded = menuToggle?.getAttribute("aria-expanded") === "true";
+    menuToggle?.setAttribute("aria-expanded", (!isExpanded).toString());
+
+    if (isExpanded) {
+      mobileMenu?.classList.add("hidden");
+      hamburgerIcon?.classList.remove("hidden");
+      closeIcon?.classList.add("hidden");
+      document.body.style.overflow = "";
+    } else {
+      mobileMenu?.classList.remove("hidden");
+      hamburgerIcon?.classList.add("hidden");
+      closeIcon?.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    }
+  }
+
+  menuToggle?.addEventListener("click", toggleMenu);
+
+  mobileLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (!mobileMenu?.classList.contains("hidden")) {
+        toggleMenu();
+      }
+    });
+  });
+
+  let isShrunk = false;
+  window.addEventListener(
+    "scroll",
+    () => {
+      const currentScroll = window.scrollY;
+
+      if (currentScroll > 80 && !isShrunk) {
+        header?.classList.add("shadow-xl", "bg-surface-100");
+        header?.classList.remove("bg-surface-100/95");
+        headerContainer?.classList.replace("h-24", "h-20");
+        isShrunk = true;
+      } else if (currentScroll <= 80 && isShrunk) {
+        header?.classList.remove("shadow-xl", "bg-surface-100");
+        header?.classList.add("bg-surface-100/95");
+        headerContainer?.classList.replace("h-20", "h-24");
+        isShrunk = false;
+      }
+    },
+    { passive: true },
+  );
+</script>
+
+<style>
+  #mobile-menu {
+    animation: slideDown 0.3s ease-out forwards;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

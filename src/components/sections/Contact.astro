@@ -1,0 +1,95 @@
+---
+import ContactForm from "../react/ContactForm.tsx";
+import { Hammer, Ruler, HardHat } from "lucide-react";
+
+const badges = [
+  { icon: Hammer, text: "Ejecución Profesional" },
+  { icon: Ruler, text: "Presupuestos Técnicos" },
+  { icon: HardHat, text: "Seguridad en Obra" },
+];
+---
+
+<section
+  id="contacto"
+  class="relative py-12 md:py-24 bg-surface-100 overflow-hidden"
+>
+  <div class="container relative z-10 mx-auto px-6 md:px-12">
+    <!-- HEADER BLOCK (BRICK STYLE) -->
+    <div
+      class="bg-surface-100 border-x border-t border-surface-300 p-6 md:p-10 lg:p-16 text-center lg:text-left animate-reveal"
+    >
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+        <div class="max-w-3xl">
+          <div
+            class="flex items-center justify-center lg:justify-start gap-4 mb-4"
+          >
+            <span
+              class="text-primary text-xs font-bold uppercase tracking-[0.3em]"
+            >
+              Presupuesto sin compromiso
+            </span>
+          </div>
+          <h2
+            class="text-4xl md:text-6xl lg:text-7xl font-title text-secondary leading-none uppercase"
+          >
+            Inicie su <span class="text-primary italic">Planificación.</span> Nosotros
+            lo asesoramos.
+          </h2>
+        </div>
+        <div
+          class="max-w-xs mx-auto lg:mx-0 lg:border-l-2 lg:border-primary lg:pl-8"
+        >
+          <p
+            class="text-secondary/70 text-base md:text-lg font-body leading-tight"
+          >
+            Nuestro equipo de expertos le brindará una asesoría personalizada
+            para garantizar el éxito de su proyecto.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM BLOCK: Reducimos padding lateral en móvil para ganar espacio -->
+    <div
+      class="bg-surface-100 border-x border-surface-300 p-4 md:p-12 lg:p-16 animate-reveal"
+    >
+      <div class="max-w-4xl mx-auto">
+        <ContactForm client:visible />
+      </div>
+    </div>
+
+    <!-- FOOTER BLOCK (BRICK BADGES) -->
+    <div
+      class="bg-surface-100 border-x border-b border-surface-300 p-8 lg:p-12 animate-reveal"
+    >
+      <div
+        class="flex flex-col md:flex-row justify-center items-center gap-10 md:gap-20 opacity-70 grayscale hover:grayscale-0 transition-all"
+      >
+        {
+          badges.map((badge) => (
+            <div class="flex items-center gap-3">
+              <badge.icon className="w-6 h-6 text-primary" />
+              <span class="text-secondary font-title text-lg md:text-xl uppercase tracking-wider leading-none">
+                {badge.text}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .animate-reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  @keyframes reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

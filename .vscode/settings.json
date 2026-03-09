@@ -1,0 +1,11 @@
+{
+    "editor.quickSuggestions":  {
+                                    "strings":  true
+                                },
+    "less.validate":  false,
+    "css.validate":  false,
+    "scss.validate":  false,
+    "files.associations":  {
+                               "*.css":  "tailwindcss"
+                           }
+}
